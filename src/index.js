@@ -1,12 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import App from "./containers/App";
+import todoApp from "./reducers";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+let store = createStore(todoApp);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+  // React 0.13의 이슈를 회피하기 위해
+  // 반드시 함수로 감싸줍니다.
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
